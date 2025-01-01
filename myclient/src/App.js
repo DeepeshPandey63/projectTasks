@@ -4,6 +4,7 @@ import Homepage from './pages/home';
 import Loginpage from './pages/login';
 import Signinpage from './pages/signin';
 import Datepage from './pages/date';
+import { AddnewTask } from './pages/addnew';
 function App() {
   return (
     <div className="App">
@@ -11,7 +12,8 @@ function App() {
         <Route path='/' element={<Homepage/>}/>
         <Route path='/login' element={<Loginpage/>}/>
         <Route path='/signin' element={<Signinpage/>}/>
-        <Route path='/:date' element={<Datepage/>}/>
+        <Route path='/:date' element={<Datepage />}/>
+        <Route path='/newTask' element={<AddnewTask/>}/>
       </Routes>
     </div>
   );
