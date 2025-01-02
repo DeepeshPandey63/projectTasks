@@ -40,6 +40,8 @@ const Signinpage=()=>
     </label>
     <br/>
     <button type='submit'>signin</button>
+    <br />
+    <a href="/login">Have Account Already? Login.</a>
     </form>
     </div>
     )
