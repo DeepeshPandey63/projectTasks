@@ -6,6 +6,7 @@ const app=express();
 const PORT=3800;
 const MongoURL="mongodb://127.0.0.1:27017/TaskingUser";
 app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
 mongoose.connect(MongoURL).then(()=>{console.log("mongodb connected")}).catch((err)=>{console.log(err)});
 
@@ -16,15 +17,29 @@ app.get("/",(req,res)=>{
 
 
 app.post('/signin', async (req, res) => { 
-    try { 
-        const user = new User(req.body);
-        await user.save(); 
-        res.status(201).send(user); 
-    } catch (error) { 
-        res.status(400).send(error); 
-    } 
-});
+    const body=req.body;
+    if(
+        !body||
+        !body.name||
+        !body.emailId||
+        !body.password||
+        !body.gender
+    )
+    {
+        return res.status(400).send("Abe poori cheeze de na !!!");
+    }
 
+    const result=await User.create({
+        name:body.name,
+        emailId:body.emailId,
+        password:body.password,
+        gender:body.gender,
+
+    });
+
+    return res.status(201).json(result);
+});
+ 
 
 
 
@@ -35,9 +50,3 @@ app.post('/signin', async (req, res) => {
 app.listen(PORT,()=>{
     console.log(`server started at port: ${PORT}`);
 })
-
-
-
-
-
-
