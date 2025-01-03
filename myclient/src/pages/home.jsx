@@ -14,7 +14,9 @@ const Homepage = () => {
     }
 
     return (
-        <div>
+        <div>        
+
+            
             <h1>home page</h1>
             <div>
                 <Day onClick={navigateToTheDate} />
