@@ -17,7 +17,8 @@ const Homepage = () => {
                 } 
                 return response.json(); 
             })
-            .then(data => { 
+            .then(data => {         
+                
                 setTaskDates(data); 
                 setLoading(false); 
             }) 
