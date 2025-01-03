@@ -17,7 +17,7 @@ const Signinpage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch('http://localhost:3800/signin', {
+        fetch('http://localhost:3800/signin/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
