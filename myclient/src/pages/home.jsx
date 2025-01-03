@@ -1,26 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Day } from '../cards/daysCard';
 
 const Homepage = () => {
     const navigate = useNavigate();
     
+    const [taskDates, setTaskDates] = useState([]); 
+    const [loading, setLoading] = useState(true); 
+    const [error, setError] = useState(null); 
+
+    useEffect(() => { 
+        fetch('http://localhost:3800/')
+            .then(response => { 
+                if (!response.ok) { 
+                    throw new Error('Network response was not ok'); 
+                } 
+                return response.json(); 
+            })
+            .then(data => { 
+                setTaskDates(data); 
+                setLoading(false); 
+            }) 
+            .catch(error => { 
+                setError(error); 
+                setLoading(false); 
+            }); 
+    }, []);
+
+    if (loading) { 
+        return <div>Loading...</div>; 
+    }
+    
+    if (error) { 
+        return <div>Error: {error.message}</div>; 
+    }
+
     const navigateToNewTask = () => {
         navigate('/newTask');
     }
 
-    const navigateToTheDate = () => {
-        navigate(`/${Date.now()}`);
+    const navigateToTheDate = (date) => {
+        navigate(`/${date}`);
     }
 
     return (
         <div>
-            <h1>home page</h1>
+            <h1>Home Page</h1>
             <div>
-                <Day onClick={navigateToTheDate} />
-                <Day onClick={navigateToTheDate} />
-                <Day onClick={navigateToTheDate} />
-                <Day onClick={navigateToTheDate} />
+                {taskDates.map((date, index) => (
+                    <Day onClick={() => navigateToTheDate(date)} dat={date}/>
+                ))}
             </div>
             <button 
                 style={{
